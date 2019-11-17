@@ -16,7 +16,7 @@ namespace CheckYourKnowledgeGame
             {
                 r.play(i);
             }
-
+            r.winnerAnnouncement();
             Console.ReadLine(); //prevent console from automatically closing
         }
     }

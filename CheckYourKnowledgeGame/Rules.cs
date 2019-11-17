@@ -11,7 +11,7 @@ namespace CheckYourKnowledgeGame
         //Data
         string[] playerNames = new string[5];
         int countPlayerNames = 0;
-
+        int[] scoreTracker = new int[5];
 
         //Get the player's name one at time. Then, sort all of them randomly. Print out the array of player order
         public void playerOrder()
@@ -64,15 +64,12 @@ namespace CheckYourKnowledgeGame
 
             giveOutQuestions(i);
 
-            //Prints out msg to show whether the player answers the question correctly or not?
-
-            //Who has fifty points first will be the winner. Msg will be printed out
+            //Who has highest points will be the winner. Msg will be printed out
 
             //Random golden tickets selling will be handed out. 
 
             //1. skip questions
             //2. enter other player's name and let them answer it. 
-
 
         }
 
@@ -85,24 +82,16 @@ namespace CheckYourKnowledgeGame
                                    "What is the biggest planet in the solar system?",
                                    "How many oceans are there?"};
 
-            //Random rnd = new Random();
-            //int randomNumber = rnd.Next(0, 2);
-
-            //Ask the player to pick a number in the listed range of number
-            Console.WriteLine(playerNames[index] + "!" + "Choose any number from 0 to 3");
-
-            //Read the input from the player
-            int chosenNum = Convert.ToInt32(Console.ReadLine());
-
             //Print out the question for the player
-            Console.WriteLine("Question for you is  " + questions[chosenNum]);
+            Console.WriteLine(playerNames[index] + "! Question for you is  " + questions[index]);
             Console.WriteLine("Now enter your answer");
-            checkAnswerIsCorrect(Console.ReadLine(), chosenNum);
-            //Wipe out the given out question by blank after the player is done with the question
-            questions[chosenNum] = "N/A";
+            checkAnswerIsCorrect(Console.ReadLine(), index, index);
+            //Wipe out the given out question by N/A after the player is done with the question
+            questions[index] = "N/A";
+            Console.WriteLine("******************************");
 
         }
-        public void checkAnswerIsCorrect(string ans, int questionLocation)
+        public void checkAnswerIsCorrect(string ans, int questionLocation, int playerPosition)
         {
             //answers array
             string[] answers = {"the Great Pyramid of Giza",
@@ -115,13 +104,30 @@ namespace CheckYourKnowledgeGame
             if (value == true)
             {
                 Console.WriteLine("Correct!");
+                scoreTracker[playerPosition] = 10;
+
             }
             else
             {
                 Console.WriteLine("Incorrect");
             }
 
+        }
 
+        public void winnerAnnouncement()
+        {
+            int max = scoreTracker[0];
+            int winnerPosition = 0;
+            for(int i = 0; i<scoreTracker.Length;i++)
+            { 
+                if(max < scoreTracker[i])
+                {
+                    max = scoreTracker[i];
+                    winnerPosition = i;
+                }
+            }
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("Winner is " + playerNames[winnerPosition]);
         }
     }
 }
